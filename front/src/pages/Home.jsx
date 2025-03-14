@@ -1,27 +1,31 @@
-import MovieCard from "../components/MovieCard";
-import { useState } from "react";
-import "../css/Home.css"
+import ProductCard from "../components/MovieCard";
+import { useState, useEffect } from "react";
+import { getProducts } from "../services/api";
+import "../css/Home.css";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+  const [laoding, setLoading] = useState(true);
 
-  const movies = [
-    {
-      id: 1,
-      title: "John Wick",
-      release_date: "2020",
-    },
-    {
-      id: 2,
-      title: "Terminator",
-      release_date: "1992",
-    },
-    {
-      id: 1,
-      title: "Transformers",
-      release_date: "2012",
-    },
-  ];
+  //TODO? read how it works
+  useEffect(() => {
+    const loadPopularMovies = async () => {
+      try {
+        console.log("Before load movies");
+        const popularMovies = await getProducts();
+        console.log(popularMovies);
+        setMovies(popularMovies);
+      } catch (err) {
+        console.log(err);
+        setError("Failed load movies...");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPopularMovies();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -52,7 +56,7 @@ function Home() {
       <div className="movies-grid">
         {movies.map((movie) => (
           // key for update specific component
-          <MovieCard movie={movie} key={movie.id} />
+          <ProductCard movie={movie} key={movie.id} />
         ))}
       </div>
     </div>
