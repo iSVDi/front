@@ -1,4 +1,4 @@
-import "../css/MovieCard.css";
+import "../css/ProductCard.css";
 
 function ProductCard({ movie }) {
   return (
