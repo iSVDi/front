@@ -1,22 +1,20 @@
 import ProductCard from "../components/ProductCard";
 import { useState, useEffect } from "react";
-import { getMovies, searchMovies } from "../services/api";
+import { getMovies as getProducts, searchMovies } from "../services/api";
 import "../css/Home.css";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [movies, setMovies] = useState([]);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //TODO? read how it works
   useEffect(() => {
-    const loadPopularMovies = async () => {
+    const loadProducts = async () => {
       try {
-        console.log("Before load movies");
-        const popularMovies = await getMovies();
-        console.log(popularMovies);
-        setMovies(popularMovies);
+        const products = await getProducts();
+        setProducts(products);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -25,12 +23,11 @@ function Home() {
         setLoading(false);
       }
     };
-    loadPopularMovies();
+    loadProducts();
   }, []);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    // alert(searchQuery);
     if (!searchQuery.trim()) return;
     if (loading) return;
 
@@ -42,7 +39,7 @@ function Home() {
     } catch (err) {
       console.log("Failed to search movies");
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -72,9 +69,9 @@ function Home() {
         <div className="loading"> Loading... </div>
       ) : (
         <div className="movies-grid">
-          {movies.map((movie) => (
+          {products.map((product) => (
             // key for update specific component
-            <ProductCard movie={movie} key={movie.id} />
+            <ProductCard product={product} key={products.id} />
           ))}
         </div>
       )}

@@ -1,26 +1,36 @@
 import "../css/ProductCard.css";
+import { useProductContext } from "../context/ProductContext";
 
-function ProductCard({ movie }) {
+function ProductCard({ product }) {
+  const { isFavorite, addToFavorites, removeFromFavorites } =
+    useProductContext();
+  const favorite = isFavorite(product.id);
+
+  function onFavorite(e) {
+    e.preventDefault();
+    if (favorite) removeFromFavorites(product.id);
+    else addToFavorites(product);
+  }
+
   return (
     <div className="movie-card">
       <div className="movie-poster">
-        <img src={movie.thumbnail} alt={movie.title} />
+        <img src={product.thumbnail} alt={product.title} />
         <div className="movie-overlay">
-          <button className="favorite=btn" onClick={onFavorite}>
+          <button
+            className={`favorite-btn ${favorite ? "active" : ""}`}
+            onClick={onFavorite}
+          >
             ♡
           </button>
         </div>
       </div>
       <div className="movie-title">
-        <h3>{movie.title}</h3>
-        <p>{movie.price}</p>
+        <h3>{product.title}</h3>
+        <p>{product.price}</p>
       </div>
     </div>
   );
-}
-
-function onFavorite() {
-  alert("Clicked");
 }
 
 export default ProductCard;
