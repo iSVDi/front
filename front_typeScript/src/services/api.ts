@@ -6,7 +6,7 @@ export const getMovies = async () => {
         return data.products
 }
 
-export const searchMovies = async(query) => {
+export const searchMovies = async(query: string) => {
         const response = await fetch(`${BASE_URL}/products/search?q=${query}`)
         const data = await response.json()
         return data.products
