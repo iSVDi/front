@@ -1,6 +1,6 @@
 import ProductCard from "../components/ProductCard";
 import { useState, useEffect } from "react";
-import { getMovies as getProducts, searchMovies } from "../services/api";
+import { getProducts as getProducts, searchProducts } from "../services/api";
 import "../css/Home.css";
 
 function Home() {
@@ -33,7 +33,7 @@ function Home() {
 
     setLoading(true);
     try {
-      const searchResults = await searchMovies(searchQuery);
+      const searchResults = await searchProducts(searchQuery);
       setMovies(searchResults);
       setError(null);
     } catch (err) {
