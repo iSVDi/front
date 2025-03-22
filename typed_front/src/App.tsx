@@ -1,11 +1,14 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import "./css/App.css";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
 
 function App() {
-  return <div>Hello world</div>;
+  return <div>
+    <Navbar></Navbar>
+    <Home />;
+  </div>
+  
 }
-
-
 
 export default App;
