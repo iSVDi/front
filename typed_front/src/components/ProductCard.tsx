@@ -1,21 +1,31 @@
 import React from "react";
 import "../css/ProductCard.css";
 import { Product } from "../models/product";
+import { useDispatch, useSelector } from "react-redux";
+import { FavoriteState } from "../state/store";
+import { addFavorite, removeFavorite } from "../state/favorites/favoriteSlice";
 
 interface Props {
   product: Product;
-  isFavorite: (productId: number) => boolean;
-  addToFavorites: (productId: number) => void;
-  removeFromFavorites: (productId: number) => void;
 }
 
-const ProductCard = ({
-  product,
-  isFavorite,
-  addToFavorites,
-  removeFromFavorites,
-}: Props) => {
-  const favorite = isFavorite(product.id);
+const ProductCard = ({ product }: Props) => {
+  const favoritesIds = useSelector(
+    (state: FavoriteState) => state.favorites.ids
+  );
+  const dispatch = useDispatch();
+
+  function isFavorite(id: number): boolean {
+    return favoritesIds.includes(id);
+  }
+
+  function addToFavorites(id: number) {
+    dispatch(addFavorite(id));
+  }
+
+  function removeFromFavorites(id: number) {
+    dispatch(removeFavorite(id));
+  }
 
   function onFavorite(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -35,7 +45,7 @@ const ProductCard = ({
         <img src={product.thumbnail} alt={product.title} />
         <div className="movie-overlay">
           <button
-            className={`favorite-btn ${favorite ? "active" : ""}`}
+            className={`favorite-btn ${isFavorite(product.id) ? "active" : ""}`}
             onClick={(e) => onFavorite(e)}
           >
             ♡

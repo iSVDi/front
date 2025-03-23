@@ -9,7 +9,6 @@ const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [favorites, setFavorites] = useState<number[]>([]);
 
   //TODO? read how it works
   useEffect(() => {
@@ -46,18 +45,6 @@ const Home = () => {
     }
   };
 
-  const addToFavorites = (productId: number) => {
-    setFavorites((prev) => [...prev, productId]);
-  };
-
-  const removeFromFavorites = (productId: number) => {
-    setFavorites((prev) => prev.filter((id) => id !== productId));
-  };
-
-  const isFavorite = (productId: number) => {
-    return favorites.some((id) => id === productId);
-  };
-
   return (
     <div className="home">
       <form onSubmit={(e) => handleSearch(e)} className="search-from">
@@ -84,16 +71,12 @@ const Home = () => {
         <div className="loading"> Loading... </div>
       ) : (
         <div className="movies-grid">
-          {products.map((product) => (
-            // key for update specific component
-            <ProductCard
-              product={product}
-              isFavorite={isFavorite}
-              addToFavorites={addToFavorites}
-              removeFromFavorites={removeFromFavorites}
-              key={product.id}
-            />
-          ))}
+          {products.map((product) => {
+            return (
+              // key for update specific component
+              <ProductCard product={product} key={product.id} />
+            );
+          })}
         </div>
       )}
     </div>
