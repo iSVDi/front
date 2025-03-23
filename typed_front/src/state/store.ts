@@ -8,4 +8,3 @@ export const store = configureStore({
 });
 
 export type FavoriteState = ReturnType<typeof store.getState>;
-export type AppDispath = typeof store.dispatch;

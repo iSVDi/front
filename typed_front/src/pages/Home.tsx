@@ -29,14 +29,19 @@ const Home = () => {
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!searchQuery.trim()) return;
     if (loading) return;
-
     setLoading(true);
+
     try {
-      const searchResults = await searchProducts(searchQuery);
-      setProducts(searchResults);
-      setError("");
+      if (!searchQuery.trim()) {
+        const searchResults = await getProducts();
+        setProducts(searchResults);
+        setError("");
+      } else {
+        const searchResults = await searchProducts(searchQuery);
+        setProducts(searchResults);
+        setError("");
+      }
     } catch (err) {
       console.log("Failed to search movies");
       setError("Failed to search movies");
@@ -47,10 +52,10 @@ const Home = () => {
 
   return (
     <div className="home">
-      <form onSubmit={(e) => handleSearch(e)} className="search-from">
+      <form onSubmit={(e) => handleSearch(e)} className="search-form">
         <input
           type="text"
-          placeholder="Search for movies..."
+          placeholder="Search for products..."
           className="search-input"
           value={searchQuery}
           onChange={(e) => {
