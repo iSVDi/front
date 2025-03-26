@@ -20,10 +20,11 @@ const shoppingSlice = createSlice({
   reducers: {
     increment: (state, action: PayloadAction<number>) => {
       if (state.items.find((item) => item.id == action.payload) === null) {
-        state.items.push({ id: action.payload, count: 1 });
+        console.log(action.payload);
+        state.items = [...state.items, { id: action.payload, count: 1 }];
       } else {
         state.items = state.items.map((item) => {
-          if (action.payload == item.id) {
+          if (action.payload === item.id) {
             item.count += 1;
           }
           return item;

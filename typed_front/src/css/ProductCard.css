@@ -39,7 +39,8 @@
   opacity: 0;
   transition: opacity 0.2s;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 10px;
   justify-content: flex-end;
   padding: 1rem;
 }
@@ -49,9 +50,9 @@
 }
 
 .favorite-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  /* position: absolute; */
+  /* top: 1rem;
+  right: 1rem; */
   color: white;
   font-size: 1.5rem;
   padding: 0.5rem;

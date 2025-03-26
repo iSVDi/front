@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Product } from "../models/product";
 import { useSelector } from "react-redux";
-import { FavoriteState } from "../state/store";
+import { StoreState } from "../state/store";
 import { getProducts, searchProducts } from "../services/api";
 import ProductCard from "../components/ProductCard";
 
@@ -11,7 +11,7 @@ const Favorites = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const favoritesIds = useSelector(
-    (state: FavoriteState) => state.favorites.ids
+    (state: StoreState) => state.favorites.ids
   );
 
   useEffect(() => {
