@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { count } from "console";
 
 interface ShoppingItem {
   id: number;
@@ -19,8 +18,9 @@ const shoppingSlice = createSlice({
   initialState: initialState,
   reducers: {
     increment: (state, action: PayloadAction<number>) => {
-      if (state.items.find((item) => item.id == action.payload) === null) {
-        console.log(action.payload);
+      if (
+        state.items.filter((item) => item.id === action.payload).length === 0
+      ) {
         state.items = [...state.items, { id: action.payload, count: 1 }];
       } else {
         state.items = state.items.map((item) => {
@@ -30,18 +30,28 @@ const shoppingSlice = createSlice({
           return item;
         });
       }
+      console.log(
+        "shoppings: ",
+        state.items.map((item) => item.id)
+      );
     },
     decrement: (state, action: PayloadAction<number>) => {
-      if (state.items.find((item) => item.id == action.payload)?.count === 1) {
+      if (
+        state.items.filter((item) => item.id === action.payload)[0].count === 1
+      ) {
         state.items = state.items.filter((item) => item.id !== action.payload);
       } else {
         state.items = state.items.map((item) => {
-          if (action.payload == item.id) {
+          if (action.payload === item.id) {
             item.count -= 1;
           }
           return item;
         });
       }
+      console.log(
+        "shoppings: ",
+        state.items.map((item) => item.id)
+      );
     },
   },
 });

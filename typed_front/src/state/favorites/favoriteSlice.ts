@@ -14,9 +14,11 @@ const favoriteSlice = createSlice({
   reducers: {
     addFavorite: (state, action: PayloadAction<number>) => {
       state.ids = [...state.ids, action.payload];
+      console.log("favorites: ", state.ids)
     },
     removeFavorite: (state, action: PayloadAction<number>) => {
       state.ids = state.ids.filter((id) => id !== action.payload);
+      console.log("favorites: ", state.ids)
     },
   },
 });

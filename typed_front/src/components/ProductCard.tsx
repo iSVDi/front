@@ -36,15 +36,8 @@ const ProductCard = ({ product }: Props) => {
   function onFavorite(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     e.preventDefault();
 
-    if (isFavorite(product.id)) {
-      console.log("product was in favorites");
-      removeFromFavorites(product.id);
-      console.log(favoritesIds.length);
-    } else {
-      console.log("product is adding to favorites");
-      addToFavorites(product.id);
-      console.log(favoritesIds.length);
-    }
+    if (isFavorite(product.id)) removeFromFavorites(product.id);
+    else addToFavorites(product.id);
   }
 
   function isShopping(id: number): boolean {
@@ -54,14 +47,8 @@ const ProductCard = ({ product }: Props) => {
   function onShopping(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     e.preventDefault();
 
-    if (isShopping(product.id)) {
-      console.log("Remove from shopping " + product.title);
-      dispatch(decrement(product.id));
-    } else {
-      console.log("Add to shopping " + product.title);
-      dispatch(increment(product.id));
-      console.log(shoppingItems.length);
-    }
+    if (isShopping(product.id)) dispatch(decrement(product.id));
+    else dispatch(increment(product.id));
   }
 
   return (
@@ -73,13 +60,15 @@ const ProductCard = ({ product }: Props) => {
             className={`favorite-btn ${isFavorite(product.id) ? "active" : ""}`}
             onClick={(e) => onFavorite(e)}
           >
-            <FaHeart />
+            <p>F</p>
+            {/* <FaHeart /> */}
           </span>
           <span
             className={`favorite-btn ${isShopping(product.id) ? "active" : ""}`}
             onClick={(e) => onShopping(e)}
           >
-            <FaCartPlus />
+            <p>Sh</p>
+            {/* <FaCartPlus /> */}
           </span>
         </div>
       </div>
