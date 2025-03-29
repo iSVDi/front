@@ -1,19 +1,23 @@
 import React from "react";
 import "../css/ProductCard.css";
 import { FaHeart } from "react-icons/fa6";
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa6";
 import { Product } from "../models/product";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../state/store";
 import { addFavorite, removeFavorite } from "../state/favorites/favoriteSlice";
-import { increment, decrement } from "../state/shopping/shoppingSlice";
+import {
+  increment,
+  decrement,
+  removeShopping,
+} from "../state/shopping/shoppingSlice";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 interface Props {
   product: Product;
 }
 
-const ProductCard = ({ product }: Props) => {
+const ProductCard: React.FC<Props> = ({ product }: Props) => {
   const favoritesIds = useSelector((state: StoreState) => state.favorites.ids);
 
   const shoppingItems = useSelector(
@@ -47,7 +51,7 @@ const ProductCard = ({ product }: Props) => {
   function onShopping(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     e.preventDefault();
 
-    if (isShopping(product.id)) dispatch(decrement(product.id));
+    if (isShopping(product.id)) dispatch(removeShopping(product.id));
     else dispatch(increment(product.id));
   }
 
@@ -60,15 +64,15 @@ const ProductCard = ({ product }: Props) => {
             className={`favorite-btn ${isFavorite(product.id) ? "active" : ""}`}
             onClick={(e) => onFavorite(e)}
           >
-            <p>F</p>
-            {/* <FaHeart /> */}
+            {/* <p>F</p> */}
+            <FaHeart />
           </span>
           <span
             className={`favorite-btn ${isShopping(product.id) ? "active" : ""}`}
             onClick={(e) => onShopping(e)}
           >
-            <p>Sh</p>
-            {/* <FaCartPlus /> */}
+            {/* <p>Sh</p> */}
+            <FaCartPlus />
           </span>
         </div>
       </div>

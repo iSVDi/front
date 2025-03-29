@@ -53,8 +53,15 @@ const shoppingSlice = createSlice({
         state.items.map((item) => item.id)
       );
     },
+      removeShopping: (state, action: PayloadAction<number>) => {
+        state.items = state.items.filter((item) => item.id !== action.payload);
+        console.log(
+          "shoppings: ",
+          state.items.map((item) => item.id)
+        );
+    },
   },
 });
 
-export const { increment, decrement } = shoppingSlice.actions;
+export const { increment, decrement, removeShopping } = shoppingSlice.actions;
 export default shoppingSlice.reducer;

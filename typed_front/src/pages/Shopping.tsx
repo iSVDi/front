@@ -6,7 +6,7 @@ import { increment, decrement } from "../state/shopping/shoppingSlice";
 import ShoppingCard from "../components/ShoppingCard";
 import { getProducts } from "../services/api";
 
-const Shopping = () => {
+const Shopping: React.FC = () => {
   const [shoppingProducts, setShoppingProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 

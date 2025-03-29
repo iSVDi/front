@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { StoreState } from "../state/store";
 import { getProducts, searchProducts } from "../services/api";
 import ProductCard from "../components/ProductCard";
+import "../css/Home.css"
 
 const Favorites = () => {
   const [products, setProducts] = useState<Product[]>([]);

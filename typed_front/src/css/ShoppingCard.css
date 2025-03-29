@@ -1,0 +1,22 @@
+/* .shopppingProduct {
+    display: inline;
+    background-color: aqua;
+} */
+
+.shoppping-product {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.shopping-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.shopping-buttons {
+  align-items: center;
+  display: inline-flex;
+  gap: 10px;
+}
